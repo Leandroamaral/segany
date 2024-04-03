@@ -1,0 +1,6 @@
+.DS_Store
+weights
+build/
+*.egg-info/
+gradio_cached_examples
+*.pt
