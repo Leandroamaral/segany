@@ -370,7 +370,12 @@ def point_prompt(masks, points, point_label, target_height, target_width):  # nu
             mask = annotation['segmentation']
         else:
             mask = annotation
+            
+        
         for i, point in enumerate(points):
+            print("points",points)
+            print("mask[point[1], point[0]]",mask[point[1], point[0]])
+            print("point_label[i]",point_label[i])
             if mask[point[1], point[0]] == 1 and point_label[i] == 1:
                 onemask[mask] = 1
             if mask[point[1], point[0]] == 1 and point_label[i] == 0:
