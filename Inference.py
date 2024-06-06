@@ -4,12 +4,12 @@ import ast
 import torch
 from PIL import Image
 from utils.tools import convert_box_xywh_to_xyxy
-
+import os
 
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--model_path", type=str, default="./weights/FastSAM.pt", help="model"
+        "--model_path", type=str, default="./weights/FastSAM-x.pt", help="model"
     )
     parser.add_argument(
         "--img_path", type=str, default="./images/dogs.jpg", help="path to image file"
@@ -70,9 +70,13 @@ def parse_args():
     )
     return parser.parse_args()
 
+def get_first_filename(folder_path):
+    filenames=os.listdir(folder_path)
+    return filenames[0]
 
 def main(args):
     # load model
+    print(get_first_filename("./weights/"))
     model = FastSAM(args.model_path)
     args.point_prompt = ast.literal_eval(args.point_prompt)
     args.box_prompt = convert_box_xywh_to_xyxy(ast.literal_eval(args.box_prompt))
