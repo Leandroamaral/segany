@@ -17,5 +17,5 @@ setup(
         "fastsam": "fastsam",
         "fastsam_tools": "utils",
     },
-    url="https://github.com/CASIA-IVA-Lab/FastSAM"
+    url=""
 )
