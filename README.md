@@ -8,7 +8,9 @@ sudo yum install docker
 sudo yum install git
 sudo yum install git-lfs
 ```
-
+```
+pip install git+https://github.com/openai/CLIP.git
+```
 ## 1. Create the model in replicate.com
 
 Create a new model in [https://replicate.com/models](https://replicate.com/create)
