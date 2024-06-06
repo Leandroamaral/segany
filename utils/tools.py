@@ -7,6 +7,7 @@ import os
 import sys
 import clip
 
+torch.cuda.empty_cache()
 
 def convert_box_xywh_to_xyxy(box):
     if len(box) == 4:
@@ -37,6 +38,7 @@ def segment_image(image, bbox):
 
 
 def format_results(result, filter=0):
+    torch.cuda.empty_cache()
     annotations = []
     n = len(result.masks.data)
     for i in range(n):
@@ -95,6 +97,7 @@ def get_bbox_from_mask(mask):
 def fast_process(
     annotations, args, mask_random_color, bbox=None, points=None, edges=False
 ):
+    torch.cuda.empty_cache()
     if isinstance(annotations[0], dict):
         annotations = [annotation["segmentation"] for annotation in annotations]
     result_name = os.path.basename(args.img_path)
@@ -252,6 +255,7 @@ def fast_show_mask_gpu(
     target_height=960,
     target_width=960,
 ):
+    torch.cuda.empty_cache()
     msak_sum = annotation.shape[0]
     height = annotation.shape[1]
     weight = annotation.shape[2]
@@ -292,6 +296,7 @@ def fast_show_mask_gpu(
 def retriev(
     model, preprocess, elements: [Image.Image], search_text: str, device
 ):
+    torch.cuda.empty_cache()
     preprocessed_images = [preprocess(image).to(device) for image in elements]
     tokenized_text = clip.tokenize([search_text]).to(device)
     stacked_images = torch.stack(preprocessed_images)
@@ -328,6 +333,7 @@ def crop_image(annotations, image_like):
 
 
 def box_prompt(masks, bbox, target_height, target_width):
+    torch.cuda.empty_cache()
     h = masks.shape[1]
     w = masks.shape[2]
     if h != target_height or w != target_width:
